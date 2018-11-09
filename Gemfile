@@ -11,6 +11,10 @@ gem 'rake'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
+gem 'pg'
+gem 'activerecord'
+gem 'sinatra-activerecord'
+
 gem 'dotenv'
 
 gem 'sentry-raven'
@@ -23,6 +27,7 @@ group :test do
   gem 'minitest'
   gem 'mocha'
   gem 'rack-test'
+  gem 'database_cleaner'
 end
 
 group :production do
