@@ -54,6 +54,10 @@ describe OrganisationUnit do
     check_invalid_when_empty 'system_id'
   end
 
+  it 'is invalid when system name is empty' do
+    check_invalid_when_empty 'system_name'
+  end
+
   it 'is invalid when system modified at is empty' do
     check_invalid_when_empty 'system_modified_at'
   end
