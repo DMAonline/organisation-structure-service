@@ -4,12 +4,12 @@ require_relative '../config/environment'
 require_relative '../app/application'
 
 require 'minitest/autorun'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require 'rack/test'
 require 'database_cleaner'
 
 
-DatabaseCleaner.strategy = :transactions
+DatabaseCleaner.strategy = :transaction
 
 class MiniTest::Spec
 
