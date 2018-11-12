@@ -1,0 +1,22 @@
+{
+  "^o": "Puree::Model::OrganisationalUnit",
+  "uuid": "e2e90623-299c-4c58-8d46-42d53c288626",
+  "created_by": "root",
+  "created_at": {
+    "^t": "2011-07-06T17:35:56.113000000+01:00"
+  },
+  "modified_by": "sync_user",
+  "modified_at": {
+    "^t": "2018-04-11T01:00:21.500000000+01:00"
+  },
+  "address": {
+    "^o": "Puree::Model::Address",
+    "country": "United Kingdom"
+  },
+  "email_addresses": [],
+  "name": "Lancaster University",
+  "parent": null,
+  "phone_numbers": [],
+  "type": "University",
+  "urls": []
+}
