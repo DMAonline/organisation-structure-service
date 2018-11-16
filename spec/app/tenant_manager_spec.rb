@@ -53,4 +53,25 @@ describe TenantManager do
 
   end
 
+  it 'is thread safe' do
+
+    @tenant_id_1 = SecureRandom.uuid
+    @tenant_id_2 = SecureRandom.uuid
+
+    Thread.new do
+      TenantManager.init_tenant @tenant_id_1
+      assert_equal @tenant_id_1, TenantManager.current_tenant_id
+      TenantManager.unset_tenant
+      refute TenantManager.current_tenant_id
+    end
+
+    Thread.new do
+      TenantManager.init_tenant @tenant_id_2
+      assert_equal @tenant_id_2, TenantManager.current_tenant_id
+      TenantManager.unset_tenant
+      refute TenantManager.current_tenant_id
+    end
+
+  end
+
 end
