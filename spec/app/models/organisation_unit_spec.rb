@@ -94,6 +94,21 @@ describe OrganisationUnit do
     assert_includes @institution.children, @faculty3
   end
 
+  it 'is a valid organisation unit where tenant id is set by the tenant manager' do
+
+    org_unit = OrganisationUnit.new({
+                                        name: 'Faculty of Health and Medicine',
+                                        unit_type: 'Faculty',
+                                        parent_id: @institution.id,
+                                        system_id: '8a58c4ad-2d5a-463a-841a-38839ff73a63',
+                                        system_name: 'pure',
+                                        system_modified_at: '2018-04-11T01:00:14.580000000+01:00'
+                                    })
+
+    assert org_unit.valid?
+
+  end
+
 end
 
 def check_invalid_when_empty attribute_name
