@@ -12,4 +12,6 @@ class OrganisationUnit < ActiveRecord::Base
   belongs_to :parent, class_name: 'OrganisationUnit', optional: true
   has_many :children, class_name: 'OrganisationUnit', foreign_key: 'parent_id'
 
+  default_scope { where(tenant_id: TenantManager.current_tenant_id) }
+
 end

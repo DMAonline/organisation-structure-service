@@ -4,9 +4,10 @@ require_relative '../../../app/models/organisation_unit'
 describe OrganisationUnit do
 
   before do
-    tenant_id = SecureRandom.uuid
+    @tenant_id = SecureRandom.uuid
+    TenantManager.init_tenant @tenant_id
     @institution = OrganisationUnit.create({
-        tenant_id: tenant_id,
+        tenant_id: @tenant_id,
         name: 'Lancaster University',
         unit_type: 'University',
         system_id: 'e2e90623-299c-4c58-8d46-42d53c288626',
@@ -14,7 +15,7 @@ describe OrganisationUnit do
         system_modified_at: '2018-04-11T01:00:21.500000000+01:00'
     })
     @faculty = OrganisationUnit.new({
-        tenant_id: tenant_id,
+        tenant_id: @tenant_id,
         name: 'Faculty of Health and Medicine',
         unit_type: 'Faculty',
         parent_id: @institution.id,
@@ -23,7 +24,7 @@ describe OrganisationUnit do
         system_modified_at: '2018-04-11T01:00:14.580000000+01:00'
     })
     @faculty2 = OrganisationUnit.create({
-        tenant_id: tenant_id,
+        tenant_id: @tenant_id,
         name: 'Management School',
         unit_type: 'Faculty',
         parent_id: @institution.id,
@@ -32,7 +33,7 @@ describe OrganisationUnit do
         system_modified_at: '2018-04-11T01:00:14.580000000+01:00'
     })
     @faculty3 = OrganisationUnit.create({
-        tenant_id: tenant_id,
+        tenant_id: @tenant_id,
         name: 'Faculty of Science & Technology',
         unit_type: 'Faculty',
         parent_id: @institution.id,
@@ -40,6 +41,10 @@ describe OrganisationUnit do
         system_name: 'pure',
         system_modified_at: '2018-04-11T01:00:14.580000000+01:00'
     })
+  end
+
+  after do
+    TenantManager.unset_tenant
   end
 
   it 'is a valid organisation unit (faculty)' do
