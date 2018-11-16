@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_09_124321) do
+ActiveRecord::Schema.define(version: 2018_11_16_142245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2018_11_09_124321) do
     t.string "system_id"
     t.string "system_name"
     t.datetime "system_modified_at"
+    t.index ["system_name", "system_id", "tenant_id"], name: "index_organisation_units_on_tenant_unique_system_id", unique: true
   end
 
 end

@@ -80,6 +80,12 @@ describe OrganisationUnit do
     refute @faculty.valid?
   end
 
+  it 'is valid for 2 organisation units in the same tenant to have the same system id when from different systems' do
+    @faculty.system_id = @institution.system_id
+    @faculty.system_name = 'pure2'
+    assert @faculty.valid?
+  end
+
   it 'returns an instance of the parent class when parent id is specified' do
     assert @faculty2.parent_id.present?
     assert @faculty2.parent.present?
