@@ -11,4 +11,6 @@ if ENV['RACK_ENV'] != 'production'
   require 'byebug'
 end
 
+require_relative '../app/tenant_manager'
+
 Dir["#{__dir__}/initializers/**/*.rb"].each { |file| require_relative file }
