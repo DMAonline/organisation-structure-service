@@ -36,11 +36,11 @@ class OrganisationUnitService
 
     raise NoParentSystemIdSpecified unless params[:parent_system_id].present?
 
-    ou = OrganisationUnit.where(system_id: params[:system_id], tenant_id: params[:tenant_id]).first
+    ou = get_ou_by_system_id params[:system_name], params[:system_id]
 
     return nil unless ou.present?
 
-    parent_ou = OrganisationUnit.where(system_id: params[:parent_system_id], tenant_id: params[:tenant_id]).first
+    parent_ou = get_ou_by_system_id params[:system_name], params[:parent_system_id]
 
     return nil unless parent_ou.present?
 

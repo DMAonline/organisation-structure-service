@@ -30,7 +30,12 @@ class LinkOrganisationUnitWorker
 
     ou = OrganisationUnitParserService.parse system, data
 
-    raise FailedToLinkOU unless OrganisationUnitService.link_ou_to_parent ou.dup
+    begin
+      response = OrganisationUnitService.link_ou_to_parent ou.dup
+      raise FailedToLinkOU unless response.nil? || response
+    rescue NoParentSystemIdSpecified
+      # Rescue as this is an internal error of not being able to link when no parent id is specified
+    end
 
   end
 

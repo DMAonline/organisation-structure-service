@@ -18,6 +18,8 @@ class IngestOrganisationUnitWorker
 
     ingest_organisation_unit system, data
 
+    link_organisation_unit_to_parent body
+
   end
 
   def ingest_organisation_unit system, data
@@ -32,6 +34,10 @@ class IngestOrganisationUnitWorker
       raise FailedToCreateOU unless OrganisationUnitService.create_ou params
     end
 
+  end
+
+  def link_organisation_unit_to_parent data
+    Shoryuken::Client.queues(ENV['LINK_ORG_UNITS_QUEUE_NAME']).send_message(data.to_json)
   end
 
   server_middleware do |chain|
