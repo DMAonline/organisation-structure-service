@@ -1,6 +1,7 @@
 require_relative '../services/organisation_unit_parser_service'
 require_relative '../services/organisation_unit_service'
 require_relative '../../app/parsers/message_parser'
+require_relative 'middleware/tenant_scope_middleware'
 
 class IngestOrganisationUnitWorker
 
@@ -10,20 +11,12 @@ class IngestOrganisationUnitWorker
 
   def perform _sqs_message, body
 
-    begin
+    message = MessageParser.new(body)
 
-      message = MessageParser.new(body)
+    system = message.get_system_type
+    data = message.get_data
 
-      TenantManager.init_tenant message.get_tenant_id
-
-      system = message.get_system_type
-      data = message.get_data
-
-      ingest_organisation_unit system, data
-
-    ensure
-      TenantManager.unset_tenant
-    end
+    ingest_organisation_unit system, data
 
   end
 
@@ -39,6 +32,10 @@ class IngestOrganisationUnitWorker
       raise FailedToCreateOU unless OrganisationUnitService.create_ou params
     end
 
+  end
+
+  server_middleware do |chain|
+    chain.add TenantScopeMiddleware
   end
 
 end
