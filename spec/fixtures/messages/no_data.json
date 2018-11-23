@@ -1,0 +1,9 @@
+{
+  "system": {
+    "name": "Lancaster University Pure Test",
+    "type": "pure"
+  },
+  "tenant": {
+    "id": "6cd19d93-9eff-443f-be67-711cf90e0af4"
+  }
+}

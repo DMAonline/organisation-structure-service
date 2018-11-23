@@ -19,6 +19,9 @@ gem 'dotenv'
 
 gem 'sentry-raven'
 
+gem 'shoryuken'
+gem 'aws-sdk-sqs'
+
 group :development, :test do
   gem 'byebug'
 end

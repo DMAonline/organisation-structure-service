@@ -1,0 +1,39 @@
+{
+  "tenant": {
+    "id": "6cd19d93-9eff-443f-be67-711cf90e0af4"
+  },
+  "data": {
+    "^o": "Puree::Model::OrganisationalUnit",
+    "uuid": "a5d74309-4d57-4e8c-a90f-6e43bb66b57d",
+    "created_by": "root",
+    "created_at": {
+      "^t": "2011-07-06T17:35:56.870000000+01:00"
+    },
+    "modified_by": "sync_user",
+    "modified_at": {
+      "^t": "2018-04-11T01:00:27.673000000+01:00"
+    },
+    "address": {
+      "^o": "Puree::Model::Address",
+      "country": "United Kingdom",
+      "street": "Lancaster University",
+      "building": "The Management School",
+      "city": "Lancaster"
+    },
+    "email_addresses": [],
+    "name": "Management School",
+    "parent": {
+      "^o": "Puree::Model::OrganisationalUnitHeader",
+      "uuid": "e2e90623-299c-4c58-8d46-42d53c288626",
+      "name": "Lancaster University",
+      "type": "University"
+    },
+    "phone_numbers": [
+      "+44 (0) 1524 510752"
+    ],
+    "type": "Faculty",
+    "urls": [
+      "http://www.lancaster.ac.uk/lums/"
+    ]
+  }
+}
