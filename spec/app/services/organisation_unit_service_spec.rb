@@ -36,15 +36,16 @@ describe OrganisationUnitService do
 
   end
 
-  it 'returns nil if the organisation unit doesnot exist' do
+  it 'returns nil if the organisation unit does not exist' do
 
     params = {
         system_id: SecureRandom.uuid,
         tenant_id: SecureRandom.uuid,
-        parent_system_id: SecureRandom.uuid
+        parent_system_id: SecureRandom.uuid,
+        system_name: 'pure'
     }
 
-    OrganisationUnit.expects(:where).with(system_id: params[:system_id], tenant_id: params[:tenant_id]).returns([])
+    OrganisationUnit.expects(:where).with(system_id: params[:system_id], system_name: params[:system_name]).returns([])
 
     refute OrganisationUnitService.link_ou_to_parent(params)
 
@@ -55,12 +56,13 @@ describe OrganisationUnitService do
     params = {
         system_id: SecureRandom.uuid,
         tenant_id: SecureRandom.uuid,
-        parent_system_id: SecureRandom.uuid
+        parent_system_id: SecureRandom.uuid,
+        system_name: 'pure'
     }
 
-    OrganisationUnit.expects(:where).with(system_id: params[:system_id], tenant_id: params[:tenant_id]).returns(stub(:first => true))
+    OrganisationUnit.expects(:where).with(system_id: params[:system_id], system_name: params[:system_name]).returns(stub(:first => true))
 
-    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], tenant_id: params[:tenant_id]).returns([])
+    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], system_name: params[:system_name]).returns([])
 
     refute OrganisationUnitService.link_ou_to_parent(params)
 
@@ -71,14 +73,15 @@ describe OrganisationUnitService do
     params = {
         system_id: SecureRandom.uuid,
         tenant_id: SecureRandom.uuid,
-        parent_system_id: SecureRandom.uuid
+        parent_system_id: SecureRandom.uuid,
+        system_name: 'pure'
     }
 
     ou = stub(:parent_id= => true)
 
-    OrganisationUnit.expects(:where).with(system_id: params[:system_id], tenant_id: params[:tenant_id]).returns(stub(:first => ou))
+    OrganisationUnit.expects(:where).with(system_id: params[:system_id], system_name: params[:system_name]).returns(stub(:first => ou))
 
-    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], tenant_id: params[:tenant_id]).returns(stub(:first => stub(:id => 1234)))
+    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], system_name: params[:system_name]).returns(stub(:first => stub(:id => 1234)))
 
     ou.expects(:save).returns false
 
@@ -93,14 +96,15 @@ describe OrganisationUnitService do
     params = {
         system_id: SecureRandom.uuid,
         tenant_id: SecureRandom.uuid,
-        parent_system_id: SecureRandom.uuid
+        parent_system_id: SecureRandom.uuid,
+        system_name: 'pure'
     }
 
     ou = stub(:parent_id= => true)
 
-    OrganisationUnit.expects(:where).with(system_id: params[:system_id], tenant_id: params[:tenant_id]).returns(stub(:first => ou))
+    OrganisationUnit.expects(:where).with(system_id: params[:system_id], system_name: params[:system_name]).returns(stub(:first => ou))
 
-    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], tenant_id: params[:tenant_id]).returns(stub(:first => stub(:id => 1234)))
+    OrganisationUnit.expects(:where).with(system_id: params[:parent_system_id], system_name: params[:system_name]).returns(stub(:first => stub(:id => 1234)))
 
     ou.expects(:save).returns true
 
