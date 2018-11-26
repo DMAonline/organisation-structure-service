@@ -1,0 +1,64 @@
+version: 2
+jobs:
+  build:
+    docker:
+    # specify the version you desire here
+    - image: circleci/ruby:2.5.1-node-browsers
+      environment:
+        DB_ADAPTER: postgresql
+        MAX_THREADS: 5
+        DB_HOST: localhost
+        DB_USERNAME: root
+        DB_NAME: dmao_organisation_structure_test
+        JWT_SECRET: TestJWTSecret-123456
+        JWT_ISSUER: jwt-issuer.test.ci.dmao.org
+        JWT_AUDIENCE: dmaonline-test
+        JWT_CUSTOM_CLAIMS_ATTR: dmaonline
+
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    - image: circleci/postgres:9.4
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_DB: dmao_organisation_structure_test
+
+    working_directory: ~/repo
+
+    steps:
+    - checkout
+
+    # Download and cache dependencies
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies-
+
+    - run:
+        name: install dependencies
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+    - run:
+        name: Setup Code Climate test-reporter
+        command: |
+          # download test reporter as a static binary
+                   curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+                   chmod +x ./cc-test-reporter
+
+    # Database setup
+    - run: bundle exec rake db:create
+    - run: bundle exec rake db:schema:load
+
+    # run tests!
+    - run:
+        name: run tests
+        command: |
+          ./cc-test-reporter before-build
+          bundle exec rake test
+          ./cc-test-reporter after-build --cover-input-type simplecov --exit-code $?
