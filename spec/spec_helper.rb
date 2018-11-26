@@ -1,5 +1,12 @@
 ENV['RACK_ENV'] ||= 'test'
 
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter '/config/'
+  add_filter '/spec/'
+end
+
 require_relative '../config/environment'
 require_relative '../app/application'
 
