@@ -22,6 +22,8 @@ gem 'sentry-raven'
 gem 'shoryuken'
 gem 'aws-sdk-sqs'
 
+gem 'DMAonline-Warden-JWT', :github => 'DMAonline/dmaonline-warden-jwt', :branch => 'logging'
+
 group :development, :test do
   gem 'byebug'
 end

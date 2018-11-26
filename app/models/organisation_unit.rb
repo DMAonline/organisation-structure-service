@@ -1,4 +1,8 @@
+require_relative 'concerns/filterable'
+
 class OrganisationUnit < ActiveRecord::Base
+
+  include Filterable
 
   validates :tenant_id, presence: true
 
@@ -13,5 +17,10 @@ class OrganisationUnit < ActiveRecord::Base
   has_many :children, class_name: 'OrganisationUnit', foreign_key: 'parent_id'
 
   default_scope { where(tenant_id: TenantManager.current_tenant_id) }
+
+  scope :type, -> (type_id) { where unit_type: type_id }
+  scope :parent_id, -> (parent_id) { where parent_id: parent_id }
+  scope :system_id, -> (system_id) { where system_id: system_id }
+  scope :system, -> (system) { where system_name: system }
 
 end
