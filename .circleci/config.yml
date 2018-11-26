@@ -65,3 +65,6 @@ jobs:
           ./cc-test-reporter before-build
           bundle exec rake test
           ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+
+    - store_test_results:
+        path: spec/reports
