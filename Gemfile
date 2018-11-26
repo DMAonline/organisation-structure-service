@@ -25,6 +25,7 @@ gem 'aws-sdk-sqs'
 gem 'DMAonline-Warden-JWT', :github => 'DMAonline/dmaonline-warden-jwt', :branch => 'logging'
 
 gem 'simplecov', require: false, group: :test
+gem 'minitest-ci', require: false, group: :test
 
 group :development, :test do
   gem 'byebug'
