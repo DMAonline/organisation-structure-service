@@ -11,10 +11,12 @@ require_relative '../config/environment'
 require_relative '../app/application'
 
 require 'minitest/autorun'
+require 'minitest/ci'
 require 'mocha/minitest'
 require 'rack/test'
 require 'database_cleaner'
 
+Minitest::Ci.report_dir = "spec/reports"
 
 DatabaseCleaner.strategy = :transaction
 
