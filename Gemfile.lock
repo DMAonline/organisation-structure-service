@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/DMAonline/dmaonline-warden-jwt
+  revision: 6ac6276dee748ae43da04df2bc8c2a33cca59ef5
+  branch: logging
+  specs:
+    DMAonline-Warden-JWT (0.1.0)
+      jwt (~> 2.1.0)
+      warden (~> 1.2.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,6 +43,7 @@ GEM
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
+    jwt (2.1.0)
     metaclass (0.0.4)
     minitest (5.11.3)
     mocha (1.7.0)
@@ -76,11 +86,14 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    warden (1.2.8)
+      rack (>= 2.0.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  DMAonline-Warden-JWT!
   activerecord
   aws-sdk-sqs
   bundler
